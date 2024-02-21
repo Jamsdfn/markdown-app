@@ -31,6 +31,7 @@ function createMainWindow() {
     mainWindow.once('ready-to-show', () => {
         mainWindow.show()
     })
+    mainWindow.webContents.openDevTools()
 }
 
 app.on('ready', () => {

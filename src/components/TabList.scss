@@ -1,0 +1,19 @@
+.editor-tab-list {
+    .ant-tabs-nav {
+        background: rgb(243, 243,243);
+        &::before {
+            border-bottom: none;
+        }
+        .ant-tabs-tab {
+            &.ant-tabs-tab-active {
+                background: #fff;
+            }
+            background: rgb(236, 236, 236);
+            border-radius: 0 !important;
+            border: none !important;
+            .ant-tabs-tab-btn {
+                color: #475468 !important;
+            }
+        }
+    }
+}

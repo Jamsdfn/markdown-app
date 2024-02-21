@@ -1,0 +1,40 @@
+.file-list {
+    flex: 1;
+    margin-top: 8px;
+    margin-bottom: 0;
+    padding: 0;
+    li {
+        cursor: default;
+        padding: 10px 20px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        &:hover {
+            background: rgba(0, 0, 0, 0.06);
+        }
+        &:has(.edit) {
+            background: rgba(0, 0, 0, 0.06);
+        }
+        &:has(.active) {
+            background: #e4e6f1;
+        }
+        div {
+            display: flex;
+            align-items: center;
+            .file-list-item-container {
+                margin: 0 2px;
+                width: 130px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                height: 32px;
+                line-height: 32px;
+            }
+            .anticon {
+                margin-left: 2px;
+                &:last-of-type {
+                    margin-left: 4px;
+                }
+            }
+        }
+    }
+}
