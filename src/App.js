@@ -12,19 +12,29 @@ import { unSaveFileIdAdd, unSaveFileIdRemove } from './store/unSaveIdSlice'
 import { useDispatch } from 'react-redux'
 import { useKeyPress } from 'ahooks'
 import { v4 as uuidv4 } from 'uuid'
+import { omit } from 'lodash'
 
 const { existsSync } = window.require('fs')
 const path = window.require('path')
+const Store = window.require('electron-store')
 const { ipcRenderer } = window.require('electron')
 // const { dialog } = window.require('@electron/remote')
 
+const fileStore = new Store()
+
+const saveToStore = (files) => {
+  const fileData = files.map(file => {
+    return omit(file, 'body')
+  })
+  fileStore.set('file', fileData)
+}
 
 function App() {
   const [isLoading, setLoading] = useState(false)
   const [editingFiles, setEditingFiles] = useState([])
   const [activeFileId, setActiveFileId] = useState('')
   const [searchFiles, setSearchFiles] = useState([])
-  const [workspaceFile, setWorkspaceFile] = useState([])
+  const [workspaceFile, setWorkspaceFile] = useState(fileStore.get('file'))
   const [newFileModelOpen, setNewFileModelOpen] = useState(false)
   const [newFileLoading, setNewFileLoading] = useState(false)
   const [newFilePath, setNewFilePath] = useState('')
@@ -37,6 +47,7 @@ function App() {
   })
 
   let activeFile = workspaceFile.find(item => item.id === activeFileId)
+
   // 关闭编辑标签
   const handleCloseEditingFile = (closeId) => {
     const files = editingFiles.filter(item => item.id !== closeId)
@@ -259,6 +270,12 @@ function App() {
     activeFile = workspaceFile.find(item => item.id === activeFileId)
     if (activeFileId && !editingFiles.some(editingFile => editingFile.id === activeFileId)) setEditingFiles([...editingFiles, activeFile])
   }, [activeFileId])
+
+  useEffect(() => {
+    if (workspaceFile && workspaceFile.length) {
+      saveToStore(workspaceFile)
+    }
+  }, [workspaceFile])
 
   const fileList = searchFiles.length > 0 ? searchFiles : workspaceFile
   return (

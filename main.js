@@ -2,6 +2,7 @@ const { BrowserWindow, ipcMain } = require('electron')
 const { app, dialog } = require('electron')
 const path = require('path')
 const remote = require('@electron/remote/main')
+const ElectronStore = require('electron-store');
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 let mainWindow = null
@@ -40,6 +41,7 @@ function createMainWindow() {
 
 app.on('ready', () => {
     createMainWindow()
+    ElectronStore.initRenderer()
     ipcMain.handle('choose-file', async (event, args) => {
         const res = await dialog.showOpenDialog(args)
         return res
