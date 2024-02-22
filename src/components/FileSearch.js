@@ -12,6 +12,7 @@ const FileSearch = ({ title = '编辑器', onFileSearch }) => {
     const closeSearch = () => {
         setInputActive(false)
         setSearchValue('')
+        onFileSearch('')
     }
     const keyCallbackMap = {
         'enter': () => {
@@ -44,7 +45,7 @@ const FileSearch = ({ title = '编辑器', onFileSearch }) => {
                     <>
                         <Input
                             ref={ node }
-                            placeholder="请输入"
+                            placeholder="按enter进行文件搜索"
                             value={ searchValue }
                             onChange={(e) => { setSearchValue(e.target.value) }}
                             allowClear>

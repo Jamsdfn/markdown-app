@@ -28,6 +28,9 @@
                 white-space: nowrap;
                 height: 32px;
                 line-height: 32px;
+                &.edit {
+                    flex: 1;
+                }
             }
             .anticon {
                 margin-left: 2px;

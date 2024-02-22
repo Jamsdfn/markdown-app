@@ -1,6 +1,7 @@
 const { BrowserWindow, ipcMain } = require('electron')
-const { app } = require('electron')
+const { app, dialog } = require('electron')
 const path = require('path')
+const remote = require('@electron/remote/main')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 let mainWindow = null
@@ -13,11 +14,12 @@ function createMainWindow() {
         minWidth: 960,
         show: false,
         // frame: false,
-        title: 'Editor',
-        // webPreferences: {
-        //     nodeIntegration: true
-        //     // preload: path.resolve(__dirname, '../utils/contextBridge.js')
-        // },
+        title: 'Markdown Editor',
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+            // preload: path.resolve(__dirname, '../utils/contextBridge.js')
+        },
         icon: path.resolve(__dirname, './public/logo192.png')
     })
 
@@ -31,9 +33,15 @@ function createMainWindow() {
     mainWindow.once('ready-to-show', () => {
         mainWindow.show()
     })
-    mainWindow.webContents.openDevTools()
+    remote.initialize()
+    remote.enable(mainWindow.webContents)
+    if (isDevelopment) mainWindow.webContents.openDevTools()
 }
 
 app.on('ready', () => {
     createMainWindow()
+    ipcMain.handle('choose-file', async (event, args) => {
+        const res = await dialog.showOpenDialog(args)
+        return res
+    })
 })
