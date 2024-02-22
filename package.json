@@ -1,5 +1,5 @@
 {
-  "name": "editor",
+  "name": "Jamsdfn-markdown-editor",
   "version": "0.1.0",
   "private": true,
   "main": "main.js",
@@ -77,12 +77,12 @@
     "electron-start": "cross-env NODE_ENV=development electron .",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "pack": "electron-builder --dir",
-    "pack-mac": "electron-builder --dir --mac",
-    "pack-win": "electron-builder --dir --win",
-    "dist": "electron-builder",
-    "dist-mac": "electron-builder --mac",
-    "dist-win": "electron-builder --win"
+    "pack": "node scripts/build.js && electron-builder --dir",
+    "pack-mac": "node scripts/build.js && electron-builder --dir --mac",
+    "pack-win": "node scripts/build.js && electron-builder --dir --win",
+    "dist": "node scripts/build.js && electron-builder",
+    "dist-mac": "node scripts/build.js && electron-builder --mac",
+    "dist-win": "node scripts/build.js && electron-builder --win"
   },
   "eslintConfig": {
     "extends": [
