@@ -21,13 +21,13 @@ function createMainWindow() {
             contextIsolation: false
             // preload: path.resolve(__dirname, '../utils/contextBridge.js')
         },
-        icon: path.resolve(__dirname, './public/logo192.png')
+        icon: path.join(__dirname, './assets/appdmg.png')
     })
 
     if (isDevelopment) {
         mainWindow.loadURL('http://localhost:3000/')
     } else {
-        const entryPath = path.resolve(__dirname, '../../build/index.html')
+        const entryPath = path.join(__dirname, './build/index.html')
         mainWindow.loadFile(entryPath)
     }
 
