@@ -34,7 +34,7 @@ function App() {
   const [editingFiles, setEditingFiles] = useState([])
   const [activeFileId, setActiveFileId] = useState('')
   const [searchFiles, setSearchFiles] = useState([])
-  const [workspaceFile, setWorkspaceFile] = useState(fileStore.get('file'))
+  const [workspaceFile, setWorkspaceFile] = useState(fileStore.get('file') || [])
   const [newFileModelOpen, setNewFileModelOpen] = useState(false)
   const [newFileLoading, setNewFileLoading] = useState(false)
   const [newFilePath, setNewFilePath] = useState('')
