@@ -101,6 +101,9 @@ function App() {
         return
       }
       await fileHelper.renameFile(renameFile.path, newPath)
+      renameFile.path = newPath
+      renameFile.title = newTitle
+      setWorkspaceFile([...workspaceFile])
     } catch (err) {
         Modal.error({
           title: '文件改名失败',
